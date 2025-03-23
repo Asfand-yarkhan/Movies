@@ -1,3 +1,4 @@
+// HomeScreen.js (Updated with Pagination)
 import React from 'react';
 import {
   StyleSheet,
@@ -7,12 +8,12 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
-import useMovies from './useMovies'; // Import the custom hook
+import useMovies from './useMovies';
 
 const HomeScreen = () => {
-  const { data, loading, error } = useMovies();
+  const { data, loading, error, loadMoreMovies } = useMovies();
 
-  if (loading) {
+  if (loading && data.length === 0) {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="blue" />
@@ -38,15 +39,19 @@ const HomeScreen = () => {
         <FlatList
           data={data}
           keyExtractor={(item) => item.id.toString()}
-          numColumns={2} 
+          numColumns={2}
+          onEndReached={loadMoreMovies}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={loading ? <ActivityIndicator size="small" color="blue" /> : null}
           renderItem={({ item }) => (
             <View style={styles.movieContainer}>
               <Image
-                source={{ uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
+                source={{ uri: item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : 'https://via.placeholder.com/150' }}
                 style={styles.movieImage}
               />
               <Text style={styles.movieTitle}>{item.title}</Text>
-            </View>)}
+            </View>
+          )}
         />
       </View>
     </View>

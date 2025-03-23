@@ -4,11 +4,11 @@ import React from 'react'
 const Login = () => {
   return (
     <View style={{flex: 1, justifyContent: 'center'}}>
-       <View style={{flex: .2, backgroundColor: 'lightblue'}}>
-       <Text style={styles.heading}>Login Screen</Text>
+       <View style={{flex: .2, backgroundColor: 'grey'}}>
+       <Text style={styles.heading}>Welcome</Text>
        </View>
-       <View style={{flex: .8, backgroundColor: 'lightgreen', alignItems:'center'}}>
-        <Text style={{fontSize: 25, margin: 10}}>
+       <View style={{flex: .8, backgroundColor: 'lightgrey', alignItems:'center'}}>
+        <Text style={{fontSize: 25, margin: 10 , marginTop: 70}}>
             Enter your username 
         </Text>
         <TextInput 
